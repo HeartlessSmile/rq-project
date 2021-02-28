@@ -1,10 +1,31 @@
 
 <template>
-  <div class="side-bar">
-    <div class="side-header"></div>
-    <el-menu :show-timeout="200" :default-active="activeMenu" mode="vertical" class="sider-menu" text-color="#000" active-text-color="#4FAB68">
-      <el-menu-item  v-for="route in list" :key="route.path" :base-path="route.path">
-        <span slot="title">{{route.name}}</span>
+  <div class="layout-side-bar" :style="{width:!isCollapse?'248px':'84px'}">
+    <div class="side-header">
+      <div class="logo" v-show="!isCollapse"></div>
+      <div class="icon" @click="setSiderBar"></div>
+    </div>
+    <el-menu default-active="1-4-1" @open="handleOpen" @close="handleClose" :collapse="isCollapse" class="sider-menu" :collapse-transition="false">
+      <p v-show="!isCollapse" class="sider-menu-desc top">系统设置</p>
+      <el-submenu index="1">
+        <template slot="title">
+          <i class="el-icon-location"></i>
+          <span slot="title">导航一</span>
+        </template>
+        <el-menu-item index="1-1">选项1</el-menu-item>
+        <el-menu-item index="1-2">选项2</el-menu-item>
+      </el-submenu>
+      <el-menu-item index="2">
+        <i class="el-icon-menu"></i>
+        <span slot="title">导航二</span>
+      </el-menu-item>
+      <el-menu-item index="3">
+        <i class="el-icon-document"></i>
+        <span slot="title">导航三</span>
+      </el-menu-item>
+      <el-menu-item index="4">
+        <i class="el-icon-setting"></i>
+        <span slot="title">导航四</span>
       </el-menu-item>
     </el-menu>
   </div>
@@ -16,6 +37,7 @@ export default {
   data () {
     return {
       LogoPng: require("../../assets/images/logo.png"),
+      isCollapse: false,
       activeMenu: '',
       list: [
         {
@@ -35,23 +57,72 @@ export default {
   },
   computed: {},
   methods: {
-
+    handleOpen (key, keyPath) {
+      console.log(key, keyPath);
+    },
+    handleClose (key, keyPath) {
+      console.log(key, keyPath);
+    },
+    setSiderBar () {
+      this.isCollapse = !this.isCollapse
+    }
   },
   created () {
   }
 }
 </script>
 
-<style lang="scss" scoped>
-.side-bar {
+<style lang="scss">
+.layout-side-bar {
   width: 100%;
-  .side-header{
-    height: 80px;
-    width: 248px;
-    background-color: #5758E7;
+  .side-header {
+    height: 84px;
+    background-color: #5758e7;
+    display: flex;
+    .logo {
+      flex: 1;
+      height: 100%;
+    }
+    .icon {
+      width: 84px;
+      height: 100%;
+      background: red;
+    }
   }
   .sider-menu {
     height: 100%;
+    width: 100%;
+    &.el-menu--collapse {
+      .el-submenu__title,
+      .el-tooltip {
+        text-align: center;
+      }
+    }
+    .sider-menu-desc {
+      margin-top: 30px;
+      text-align: center;
+      color: #b1b1c5;
+      font-size: 16px;
+      position: relative;
+      &::before {
+        content: '';
+        width: 30px;
+        height: 1px;
+        position: absolute;
+        left: 30px;
+        background-color: red;
+        top: 10px;
+      }
+      &::after {
+        content: '';
+        width: 30px;
+        height: 1px;
+        position: absolute;
+        right: 24px;
+        background-color: red;
+        top: 10px;
+      }
+    }
     .sider-menu-item {
       font-size: 16px;
       padding-top: 10px;

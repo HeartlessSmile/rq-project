@@ -38,19 +38,17 @@ export default {
   min-height: 100vh;
   display: flex;
   .layout-sider{
-    width: 248px;
     min-height: 100vh;
-    
   }
   .layout-content {
     flex: 1;
     .layout-header{
-      height: 80px;
+      height: 84px;
       background: #6061F1;
       border-bottom: 1px solid #ccc;
     }
     .main-box {
-      min-height: calc(100vh - 80px);
+      min-height: calc(100vh - 84px);
     }
   }
 }
